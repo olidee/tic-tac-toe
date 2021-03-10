@@ -55,8 +55,3 @@
     (if (= :ongoing state)
       (make-move board (rand-int max-index) :x)
       result)))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
