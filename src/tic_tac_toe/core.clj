@@ -6,9 +6,9 @@
 (def max-index (* board-width board-width))
 
 (def winning-sets
-  #{[0 1 2] [3 4 5] [6 7 8] ; horizontal
-    [0 3 6] [1 4 7] [2 5 8] ; vertical
-    [0 4 8] [2 4 6]})       ; diagonal
+  [#{0 1 2} #{3 4 5} #{6 7 8} ; horizontal
+   #{0 3 6} #{1 4 7} #{2 5 8} ; vertical
+   #{0 4 8} #{2 4 6}])       ; diagonal
 
 ; could use medley/map-vals here, but since it's a test i'll do it the old fashioned way :)
 (defn- flatten-board
@@ -23,12 +23,17 @@
        (map flatten-board)
        (into {})))
 
+(defn- winner?
+  [squares]
+  (->> winning-sets
+       (some #(clojure.set/subset? % (into #{} squares)))))
+
 (defn analyse
   [board]
   (let [{:keys [e x o]} (board->map board)]
     (cond
-      (winning-sets x) :x
-      (winning-sets o) :o
+      (winner? x) :x
+      (winner? o) :o
       (empty? e) :draw
       :else :ongoing)))
 

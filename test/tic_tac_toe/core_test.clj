@@ -34,7 +34,6 @@
     [:o :o :x
      :e :e :e
      :o :x :o]
-
     [[:o :o :x
       :x :e :e
       :o :x :o]
@@ -48,16 +47,28 @@
 (deftest test-game
   (are [board x y result] (= result (game board x y))
     [:o :o :e
-     :e :e :x
+     :o :e :x
      :x :x :e]
     3 1
-    {:board [:o :o :o :e :e :x :x :x :e] :state :o}
+    {:board [:o :o :o
+             :o :e :x
+             :x :x :e] :state :o}
 
-    [:o :o :x
-     :e :x :x
-     :x :x :o]
+    [:o :e :e
+     :o :o :x
+     :x :x :e]
+    3 3
+    {:board [:o :e :e
+             :o :o :x
+             :x :x :o] :state :o}
+
+    [:o :x :o
+     :e :o :x
+     :x :o :x]
     1 2
-    {:board [:o :o :x :o :x :x :x :x :o] :state :draw})
+    {:board [:o :x :o
+             :o :o :x
+             :x :o :x] :state :draw})
 
   (let [board [:e :o :e
                :e :e :e
